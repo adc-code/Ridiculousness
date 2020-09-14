@@ -1,0 +1,88 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[letterpaper,margin=0.25in]{geometry}
+\usepackage{graphicx}
+
+\usepackage{pstricks}
+\usepackage{nicefrac}
+\usepackage{pstricks-add}
+\usepackage{xcolor}
+\usepackage{lscape}
+
+\begin{document}
+
+\begin{landscape}
+
+\begin{center}
+\psset{xunit=0.5in,yunit=0.5in}
+\begin{pspicture}(0,0)(16,10)
+%\psframe[linewidth=0pt](0,0)(16,10)
+%\psframe[linewidth=0pt](1,1)(5,9)
+%\psframe[linewidth=0pt](6,1)(10,9)
+\psframe[linewidth=0pt](11,1)(15,9)
+
+\psframe[linewidth=1.5pt](1,1)(5,9)
+\psline[linewidth=0.5pt](1,9.1)(1,9.6)
+\psline[linewidth=0.5pt](5,9.1)(5,9.6)
+\psline[linewidth=0.5pt](0.9,1)(0.4,1)
+\psline[linewidth=0.5pt](0.9,9)(0.4,9)
+\psline[linewidth=0.5pt]{<->}(1,9.35)(5,9.35)
+\psline[linewidth=0.5pt]{<->}(0.65,1)(0.65,9)
+\rput[b](3,9.4){\small \sf 4' (or 48")}
+\rput[b]{90}(0.6,5){\small \sf 8' (or 96")}
+\rput(3,0.5){\small \sf Original piece of $4 \times 8$ plywood}
+
+\psframe[linewidth=1.5pt](6,9.1)(8.667,3.1)
+\psframe[linewidth=1.5pt](8.767,9.1)(10.1,5.1)
+\psframe[linewidth=1.5pt](8.767,5)(10.1,1)
+\psframe[linewidth=1.5pt](6,3)(8.667,1)
+\psline[linewidth=0.5pt](6,9.2)(6,9.7)
+\psline[linewidth=0.5pt](8.667,9.2)(8.667,9.7)
+\psline[linewidth=0.5pt](8.767,9.2)(8.767,9.7)
+\psline[linewidth=0.5pt](10.1,9.2)(10.1,9.7)
+\psline[linewidth=0.5pt](5.9,1)(5.4,1)
+\psline[linewidth=0.5pt](5.9,3)(5.4,3)
+\psline[linewidth=0.5pt](5.9,3.1)(5.4,3.1)
+\psline[linewidth=0.5pt](5.9,9.1)(5.4,9.1)
+\psline[linewidth=0.5pt](10.2,1)(10.7,1)
+\psline[linewidth=0.5pt](10.2,5)(10.7,5)
+\psline[linewidth=0.5pt](10.2,5.1)(10.7,5.1)
+\psline[linewidth=0.5pt](10.2,9.1)(10.7,9.1)
+\psline[linewidth=0.5pt]{<->}(6,9.45)(8.667,9.45)
+\psline[linewidth=0.5pt]{<->}(8.767,9.45)(10.1,9.45)
+\psline[linewidth=0.5pt]{<->}(5.65,1)(5.65,3)
+\psline[linewidth=0.5pt]{<->}(5.65,3.1)(5.65,9.1)
+\psline[linewidth=0.5pt]{<->}(10.45,1)(10.45,5)
+\psline[linewidth=0.5pt]{<->}(10.45,5.1)(10.45,9.1)
+\rput[b](7.33,9.5){\small \sf 32"}
+\rput[b](9.434,9.5){\small \sf 16"}
+\rput[b]{90}(5.6,2){\small \sf 24"}
+\rput[b]{90}(5.6,6.1){\small \sf 72"}
+\rput[b]{-90}(10.5,3){\small \sf 48"}
+\rput[b]{-90}(10.5,7.1){\small \sf 48"}
+\rput(7.33,6.1){\sf A}
+\rput(7.33,2){\sf B}
+\rput(9.434,7.1){\sf C}
+\rput(9.434,3){\sf D}
+\rput(8.05,0.5){\small \sf Required Cuts}
+
+\psframe[linewidth=1.5pt](11.667,2)(14.333,8)
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=white](11.867,2.2)(14.533,4.2)
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=white](11.867,4.2)(13.2,8.2)
+\psframe[linewidth=1.5pt,fillstyle=solid,fillcolor=white](13.2,4.2)(14.533,8.2)
+\rput(13.2,3.2){\sf B}
+\rput(12.533,6.2){\sf C}
+\rput(13.867,6.2){\sf D}
+\psline[linewidth=0.5pt]{->}(13,1.5)(13,2)
+\rput[t](13,1.4){\sf A}
+\rput(13,0.5){\small \sf Assembly}
+
+
+\end{pspicture}
+\end{center}
+
+\end{landscape}
+
+\end{document}
+
+
