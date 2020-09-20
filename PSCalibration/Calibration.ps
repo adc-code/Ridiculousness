@@ -1,0 +1,91 @@
+%!PS
+
+0 setgray
+0 setlinecap
+0 setlinewidth
+/Outline 1 def
+/Helvetica findfont 14 scalefont setfont
+
+
+%
+% Scaling...
+%
+7 6 62.5 64 div add div 
+10 9 63 64 div add div   scale
+
+
+/inch { 72 mul } def
+/Outline 0 def
+
+/centerShow
+{
+   dup 
+   gsave
+      dup stringwidth pop 2 div neg 
+   grestore
+   gsave
+      exch true charpath pathbbox exch
+      pop sub 2 div exch pop
+   grestore
+   rmoveto 
+   Outline 1 eq 
+      { true charpath gsave 0.99 setgray fill grestore 0.5 setlinewidth stroke }
+      { show } ifelse
+} def
+
+
+/MakeInchRuler
+{
+    /MaxValue { RulerMax } def    
+    /StepSize { 1 inch } def
+    /Height   { 1 inch } def 
+    /DoNums   1  def
+
+    % Do this 6 times... for 1, 1/2, 1/4, 1/8, 1/16, 1/32 units
+    0 1 5
+    { 
+        dup 
+        2 exch exp RulerMax mul /MaxValue exch def
+        2 exch exp 1 exch div 1 inch mul /StepSize exch def
+        StepSize /Height exch def
+
+        % repeat the appropriate number of times        
+        0 1 MaxValue
+        {
+            dup
+            gsave 
+                StepSize mul 0 moveto
+                0 Height rlineto
+                stroke
+            grestore
+
+            DoNums 1 eq  
+            {
+                gsave
+                    dup
+                    StepSize mul Height 10 add moveto 
+                    2 string cvs centerShow
+                grestore 
+            } if
+        } for
+
+        /DoNums 0 def
+
+    } for
+
+} def
+
+/RulerMax 7 def
+0.75 inch 5 inch translate
+MakeInchRuler
+showpage
+
+0 setlinewidth
+/RulerMax 10 def
+4.75 inch 0.5 inch translate
+90 rotate
+MakeInchRuler
+
+showpage
+
+
