@@ -1,0 +1,130 @@
+%!PS
+
+%
+% Scaling... for Calibration
+%
+7 6 63 64 div add div 
+10 9 63 64 div add div   scale
+
+
+0 setgray
+
+/inch { 72 mul } def
+/cm   { 1 inch 2.54 div mul } def
+
+/HorizMax  7 def
+/VertMax  10 def
+
+
+/MakeInchGrid
+{
+    /StepSize { 1 inch } def
+    /MaxX     { HorizMax } def
+    /MaxY     { VertMax } def
+
+    1 1 2
+    {
+       1 eq
+       {
+           % Make major lines...
+           1 setlinewidth
+       } 
+       {
+           % Make minor lines...
+           0 setlinewidth
+           /StepSize { 0.25 inch } def
+           /MaxX { HorizMax 4 mul } def
+           /MaxY { VertMax 4 mul } def
+       } ifelse
+
+       0 1 MaxX
+       {
+           gsave
+               StepSize mul 0 moveto
+               0 VertMax inch rlineto stroke    
+           grestore
+       } for
+
+       0 1 MaxY
+       {
+           gsave
+               0 exch StepSize mul moveto
+               HorizMax inch 0 rlineto stroke
+           grestore
+       } for
+
+    } for
+
+} def
+
+
+/MakeCMGrid
+{
+    /StepSize { 1 cm } def
+    /MaxX     { HorizMax } def
+    /MaxY     { VertMax } def
+
+    1 1 2
+    {
+       1 eq
+       {
+           % Make major lines...
+           1 setlinewidth
+       } 
+       {
+           % Make minor lines...
+           0 setlinewidth
+           /StepSize { 0.2 cm } def
+           /MaxX { HorizMax 5 mul } def
+           /MaxY { VertMax 5 mul } def
+       } ifelse
+
+       0 1 MaxX
+       {
+           gsave
+               StepSize mul 0 moveto
+               0 VertMax cm rlineto stroke    
+           grestore
+       } for
+
+       0 1 MaxY
+       {
+           gsave
+               0 exch StepSize mul moveto
+               HorizMax cm 0 rlineto stroke
+           grestore
+       } for
+
+    } for
+
+} def
+
+
+%
+% Make a grid of 1 inch squares with (0.25 inch minor squares)
+%
+gsave
+    0.75 inch 0.5 inch translate
+    /HorizMax  7 def
+    /VertMax  10 def
+
+    MakeInchGrid
+    showpage
+grestore
+
+
+%
+% Make a grid of 1 cm squares with (2 mm minor squares)
+%
+gsave
+    0.5 inch 0.5 inch translate
+    /HorizMax 19 def
+    /VertMax  25 def
+
+    MakeCMGrid
+    showpage
+grestore
+
+
+
+
