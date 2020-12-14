@@ -1,6 +1,10 @@
 //
 // Sudoku Solver... using recursive backtracking
 // 
+// Note:
+// Since we are using the auto type we need use something newer than the default version of g++.
+// Therefore, for our setup we need to use the -std=c++11 flag, that is:
+// > g++ -std=c++11 SudokuSolver_RecursiveBackTracking.cpp -o SudokuSolver_RecursiveBackTracking
 
 #include <iostream>
 #include <fstream>
