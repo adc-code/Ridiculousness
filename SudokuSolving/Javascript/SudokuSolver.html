@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <script type="text/javascript" src="SudokuSolver_CoreSolver.js"></script>
+        <script type="text/javascript" src="SudokuSolver_ErrorChecking.js"></script>
+        <script type="text/javascript" src="SudokuSolver_UICallbacks.js"></script>
+
+        <style>
+
+            .button
+            {
+                background-color: #e0ccff;
+                width:            120px;
+                padding:          4px;
+                margin:           2px;
+                margin-right:     0px;
+                cursor:           pointer;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+                text-align:       center;
+                border-radius:    5px;
+                border-width:     thin;
+                border-style:     solid;
+            }
+
+            .button:hover
+            {
+                background-color: #a366ff;
+                color:            #000;
+            }
+
+            .info
+            {
+                background-color: #eeeeee;
+                width:            120px;
+                height:           180px;
+                padding:          4px;
+                margin:           2px;
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+                border-radius:    5px;
+                border-width:     thin;
+                border-style:     solid;
+                overflow-y:       scroll;
+            }
+
+            .puzzle
+            {
+                display: grid;
+                grid-template-columns: 111px 111px 111px;
+            } 
+
+            .box
+            {
+                display: grid;
+                grid-template-columns: 37px 37px 37px;
+            } 
+
+            .cell
+            {
+                width:            25px;
+                height:           25px;
+                padding:          5px;
+                background-color: #004080;
+                border-style:     solid;
+                border-color:     white;
+                border-width:     1px;
+                font-size:        22px;
+                font-weight:      bold;
+                text-align:       center;
+                font-family:      Helvetica, sans-serif;
+                color:            white;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='solutionCont'>
+            <div class='controls' style='float:left;margin-right:5px'>
+                <div class='button' id='SolveBtn'>Solve</div>
+                <div style='height:1px'></div>
+                <div class='button' id='ResetBtn'>Reset</div>
+                <div style='height:10px'></div>
+                <div class='info' id='Info'> </div>
+            </div>
+            <div style='float:left'>
+                <div class='puzzle' id='PuzzleCont'>
+                    <div class='box'> 
+                        <div class='cell' row='r1' col='c1' zone='z1' id='b11'></div>
+                        <div class='cell' row='r1' col='c2' zone='z1' id='b12'></div>
+                        <div class='cell' row='r1' col='c3' zone='z1' id='b13'></div>
+                        <div class='cell' row='r2' col='c1' zone='z1' id='b21'></div>
+                        <div class='cell' row='r2' col='c2' zone='z1' id='b22'></div>
+                        <div class='cell' row='r2' col='c3' zone='z1' id='b23'></div>
+                        <div class='cell' row='r3' col='c1' zone='z1' id='b31'></div>
+                        <div class='cell' row='r3' col='c2' zone='z1' id='b32'></div>
+                        <div class='cell' row='r3' col='c3' zone='z1' id='b33'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r1' col='c4' zone='z2' id='b14'></div>
+                        <div class='cell' row='r1' col='c5' zone='z2' id='b15'></div>
+                        <div class='cell' row='r1' col='c6' zone='z2' id='b16'></div>
+                        <div class='cell' row='r2' col='c4' zone='z2' id='b24'></div>
+                        <div class='cell' row='r2' col='c5' zone='z2' id='b25'></div>
+                        <div class='cell' row='r2' col='c6' zone='z2' id='b26'></div>
+                        <div class='cell' row='r3' col='c4' zone='z2' id='b34'></div>
+                        <div class='cell' row='r3' col='c5' zone='z2' id='b35'></div>
+                        <div class='cell' row='r3' col='c6' zone='z2' id='b36'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r1' col='c7' zone='z3' id='b17'></div>
+                        <div class='cell' row='r1' col='c8' zone='z3' id='b18'></div>
+                        <div class='cell' row='r1' col='c9' zone='z3' id='b19'></div>
+                        <div class='cell' row='r2' col='c7' zone='z3' id='b27'></div>
+                        <div class='cell' row='r2' col='c8' zone='z3' id='b28'></div>
+                        <div class='cell' row='r2' col='c9' zone='z3' id='b29'></div>
+                        <div class='cell' row='r3' col='c7' zone='z3' id='b37'></div>
+                        <div class='cell' row='r3' col='c8' zone='z3' id='b38'></div>
+                        <div class='cell' row='r3' col='c9' zone='z3' id='b39'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r4' col='c1' zone='z4' id='b41'></div>
+                        <div class='cell' row='r4' col='c2' zone='z4' id='b42'></div>
+                        <div class='cell' row='r4' col='c3' zone='z4' id='b43'></div>
+                        <div class='cell' row='r5' col='c1' zone='z4' id='b51'></div>
+                        <div class='cell' row='r5' col='c2' zone='z4' id='b52'></div>
+                        <div class='cell' row='r5' col='c3' zone='z4' id='b53'></div>
+                        <div class='cell' row='r6' col='c1' zone='z4' id='b61'></div>
+                        <div class='cell' row='r6' col='c2' zone='z4' id='b62'></div>
+                        <div class='cell' row='r6' col='c3' zone='z4' id='b63'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r4' col='c4' zone='z5' id='b44'></div>
+                        <div class='cell' row='r4' col='c5' zone='z5' id='b45'></div>
+                        <div class='cell' row='r4' col='c6' zone='z5' id='b46'></div>
+                        <div class='cell' row='r5' col='c4' zone='z5' id='b54'></div>
+                        <div class='cell' row='r5' col='c5' zone='z5' id='b55'></div>
+                        <div class='cell' row='r5' col='c6' zone='z5' id='b56'></div>
+                        <div class='cell' row='r6' col='c4' zone='z5' id='b64'></div>
+                        <div class='cell' row='r6' col='c5' zone='z5' id='b65'></div>
+                        <div class='cell' row='r6' col='c6' zone='z5' id='b66'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r4' col='c7' zone='z6' id='b47'></div>
+                        <div class='cell' row='r4' col='c8' zone='z6' id='b48'></div>
+                        <div class='cell' row='r4' col='c9' zone='z6' id='b49'></div>
+                        <div class='cell' row='r5' col='c7' zone='z6' id='b57'></div>
+                        <div class='cell' row='r5' col='c8' zone='z6' id='b58'></div>
+                        <div class='cell' row='r5' col='c9' zone='z6' id='b59'></div>
+                        <div class='cell' row='r6' col='c7' zone='z6' id='b67'></div>
+                        <div class='cell' row='r6' col='c8' zone='z6' id='b68'></div>
+                        <div class='cell' row='r6' col='c9' zone='z6' id='b69'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r7' col='c1' zone='z7' id='b71'></div>
+                        <div class='cell' row='r7' col='c2' zone='z7' id='b72'></div>
+                        <div class='cell' row='r7' col='c3' zone='z7' id='b73'></div>
+                        <div class='cell' row='r8' col='c1' zone='z7' id='b81'></div>
+                        <div class='cell' row='r8' col='c2' zone='z7' id='b82'></div>
+                        <div class='cell' row='r8' col='c3' zone='z7' id='b83'></div>
+                        <div class='cell' row='r9' col='c1' zone='z7' id='b91'></div>
+                        <div class='cell' row='r9' col='c2' zone='z7' id='b92'></div>
+                        <div class='cell' row='r9' col='c3' zone='z7' id='b93'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r7' col='c4' zone='z8' id='b74'></div>
+                        <div class='cell' row='r7' col='c5' zone='z8' id='b75'></div>
+                        <div class='cell' row='r7' col='c6' zone='z8' id='b76'></div>
+                        <div class='cell' row='r8' col='c4' zone='z8' id='b84'></div>
+                        <div class='cell' row='r8' col='c5' zone='z8' id='b85'></div>
+                        <div class='cell' row='r8' col='c6' zone='z8' id='b86'></div>
+                        <div class='cell' row='r9' col='c4' zone='z8' id='b94'></div>
+                        <div class='cell' row='r9' col='c5' zone='z8' id='b95'></div>
+                        <div class='cell' row='r9' col='c6' zone='z8' id='b96'></div>
+                    </div>
+                    <div class='box'> 
+                        <div class='cell' row='r7' col='c7' zone='z9' id='b77'></div>
+                        <div class='cell' row='r7' col='c8' zone='z9' id='b78'></div>
+                        <div class='cell' row='r7' col='c9' zone='z9' id='b79'></div>
+                        <div class='cell' row='r8' col='c7' zone='z9' id='b87'></div>
+                        <div class='cell' row='r8' col='c8' zone='z9' id='b88'></div>
+                        <div class='cell' row='r8' col='c9' zone='z9' id='b89'></div>
+                        <div class='cell' row='r9' col='c7' zone='z9' id='b97'></div>
+                        <div class='cell' row='r9' col='c8' zone='z9' id='b98'></div>
+                        <div class='cell' row='r9' col='c9' zone='z9' id='b99'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <script type="text/javascript">
+
+            var preselectedColour = '#cce0ff';
+            var selectedColour    = '#66a3ff';
+            var givenColour       = '#0052cc';
+            var solvedColour      = '#666666';
+            var oddRegionColour   = '#e6e6e6';
+            var evenRegionColour  = '#cccccc'; 
+            var sameValueColour   = '#ff66a3';
+            var sameBgColour      = '#ffcce0';
+
+            var currSelCell = null;
+            var errorsExist = false;
+
+            // Add a wide left margin so that the table seems centered
+            var CenterTable = function ()
+            {
+                document.getElementById ('solutionCont').style.marginLeft = (window.innerWidth - 530) / 2 + 'px';
+            }
+
+            // on creation of this page, center the results.
+            CenterTable (); 
+
+            // Also re-center the table when the page was resized...
+            window.addEventListener ('resize', CenterTable);
+
+
+            var allCells = document.getElementsByClassName('cell');
+            for (var i = 0; i < allCells.length; i++)
+            {
+                var bgColor = evenRegionColour;
+                var zone = allCells[i].getAttribute ('zone');
+                if (zone == 'z1' || zone == 'z3' || zone == 'z5' || zone == 'z7' || zone == 'z9')
+                    bgColor = oddRegionColour;
+
+                allCells[i].style.color = solvedColour;
+                allCells[i].style.backgroundColor = bgColor;
+                allCells[i].setAttribute ('OriginalBGColour', bgColor);
+                allCells[i].setAttribute ('CellState', 'normal');
+
+                allCells[i].addEventListener ('mouseenter', OnMouseEnter, false);
+                allCells[i].addEventListener ('mouseleave', OnMouseLeave, false); 
+                allCells[i].addEventListener ('click', OnClick);
+            }
+
+            document.getElementById ('SolveBtn').addEventListener ('click', OnSolveButton);
+            document.getElementById ('ResetBtn').addEventListener ('click', OnResetButton);
+            document.addEventListener ('keydown', setValue);
+
+
+            //
+            // resetBGColours... used to reset the background colours of the cells
+            //
+            function resetBGColours ()
+            {
+                for (var i = 1; i <= 9; i++)
+                {
+                    for (var j = 1; j <= 9; j++)
+                    {
+                        var cell = document.getElementById ('b' + i + j);
+                        cell.style.backgroundColor = cell.getAttribute ('OriginalBGColour'); 
+                        
+                        if (cell.getAttribute ('CellState') == 'error')
+                            cell.setAttribute ('CellState', 'given');
+                    }
+                }
+                currSelCell.style.backgroundColor = selectedColour;
+            }
+
+
+            //
+            // setValue... callback to handle input
+            //
+            function setValue (event)
+            {
+                if (errorsExist)
+                {
+                    var originalMsg = document.getElementById ('Info').innerHTML;
+                    document.getElementById ('Info').innerHTML = 'Please reset to deal with errors!!!' 
+                                                                 + '<br><br>'         
+                                                                 + originalMsg;
+                    return;
+                }
+                if (currSelCell != null)
+                {
+                    if (event.key >= 1 && event.key <= 9)
+                    {
+                        resetBGColours ();
+
+                        currSelCell.innerText = event.key; 
+                        currSelCell.setAttribute ('CellState', 'given');
+                        currSelCell.style.color = givenColour;
+
+                        // check for errors...
+                        checkErrors (event.key);
+                    }
+                    if (event.key == 'Backspace' || event.key == ' ')
+                    {
+                        resetBGColours ();
+
+                        currSelCell.innerText = ' ';
+                        currSelCell.setAttribute ('CellState', 'normal');
+                        currSelCell.style.color = solvedColour;
+                    }
+                }
+            }
+
+        </script>
+
+    </body>
+
+</html>
+
+
