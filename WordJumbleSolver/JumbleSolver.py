@@ -20,6 +20,10 @@ import sys
 import itertools
 
 
+#
+# GetWords: if we have multiple unscrambled words, this function is used
+# to get one particular combination
+#
 def GetWords (allWords, indices):
     # should verify that allWords and indices are the same length
     results = []
@@ -29,6 +33,9 @@ def GetWords (allWords, indices):
     return results
 
 
+#
+# GetLetters: extract the required letters from a solved word combination
+#
 def GetLetters (words, letterIndices):
     # again should verify that words and letterIndices are the same length
     results = []
@@ -41,6 +48,10 @@ def GetLetters (words, letterIndices):
     return results
 
 
+#
+# GetRemainingLetters: for the final clue, if we have a valid word then extract
+# the remaining letters for the next word to use
+#
 def GetRemainingLetters (allLetters, toBeRemoved):
     results = allLetters 
     for char in toBeRemoved:
@@ -180,7 +191,7 @@ def FindWordsFromLetters (letters, finalClueLen, element, solutions, currentSolu
 
 
 #
-# MakeWordString
+# MakeWordString: used to print out a list of strings a little bit nicer
 #
 def MakeWordString (wordArray):
     
@@ -194,7 +205,7 @@ def MakeWordString (wordArray):
 
 
 #
-#
+# The main program
 #
 if __name__ == '__main__':
 
@@ -284,5 +295,6 @@ if __name__ == '__main__':
                    
                 
         print ()
+
 
 
